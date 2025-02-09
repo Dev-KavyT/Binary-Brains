@@ -66,8 +66,8 @@ Contributions are welcome! If you have any suggestions or bug fixes, feel free t
 ## Group Members
 
 - Kavya Halani
-- Riya Soni
-- Ishit Shripal
 - Vrinda Goradia
+- Ishit Shripal
+- Riya Soni
 
 
