@@ -25,21 +25,9 @@ We have created a classic Snake game and implemented in C++ . The game challenge
 - Avoid colliding with walls or the snake's own body, or the game will end.
 - The game displays a "GAME OVER" message when you lose, and you can choose to restart.
 
-## Installation and Usage
+## Link For The Code
+- here you can find the code for the game <https://github.com/Dev-KavyT/Binary-Brains/blob/50ff74c822919ee5444f962603d37dbf469277a1/SnakeGame.cpp>
 
-1. Clone the repository:
-   ```sh
-   git clone <repository-link>
-   cd snake-game-cpp
-   ```
-2. Compile the code:
-   ```sh
-   g++ finalgame.cpp -o snake_game.exe
-   ```
-3. Run the game:
-   ```sh
-   ./snake_game.exe
-   ```
 
 ## Requirements
 
