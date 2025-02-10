@@ -11,18 +11,18 @@ using namespace std;
 enum Direction { STOP = 0, UP, DOWN, RIGHT, LEFT };
 
 void showIntro() {
-    cout << "\033[31m"; // Set color to Red
+    cout << "\033[31m"; // Red
     cout << "Welcome to Snake Game\n";
-    cout << "\033[37m\n"; // Reset color to white
+    cout << "\033[37m\n"; // white
 
-    cout << "\033[36m"; // Set color to Cyan
+    cout << "\033[36m"; // Cyan
     cout << "Game Controls:\n";
     cout << "W - Move Up\n";
     cout << "A - Move Left\n";
     cout << "S - Move Down\n";
     cout << "D - Move Right\n";
     cout << "X - Quit Game\n";
-    cout << "\033[37m\n"; // Reset color to white
+    cout << "\033[37m\n"; // white
 }
 
 class game {
@@ -85,47 +85,47 @@ public:
     void MainGame(bool showGameOver = false) {
         system(CLEAR);
 
-        int padding = 2; // Extra padding for a square shape
-        for (int i = 0; i < padding; i++) cout << endl; // Top padding
+        int padding = 2; 
+        for (int i = 0; i < padding; i++) cout << endl;
 
-        // Top boundary with spaces between #
-        cout << "\033[34m"; // Set color to blue
+        // Top 
+        cout << "\033[34m"; // blue
         for (int i = 0; i < width + 2; i++) cout << "# ";
-        cout << "\033[37m" << endl; // Reset color to white
+        cout << "\033[37m" << endl; // white
 
         for (int i = 0; i < height; i++) {
-            cout << "\033[34m#\033[37m "; // Left boundary
+            cout << "\033[34m#\033[37m "; // Left
             for (int j = 0; j < width; j++) {
                 if (showGameOver && i == height / 2 && j == (width / 2) - 4) {
-                    cout << "\033[31mGAME OVER\033[37m"; // Red "GAME OVER"
-                    j += 8; // Prevent overwriting
+                    cout << "\033[31mGAME OVER\033[37m"; // Red 
+                    j += 8; 
                 }
                 else if (j == snakeX && i == snakeY) {
-                    cout << "\033[32mO\033[37m "; // Green for snake
+                    cout << "\033[32mO\033[37m "; // Green 
                 }
                 else if (j == fruitX && i == fruitY) {
-                    cout << "\033[31m" << getFoodSymbol() << "\033[37m "; // Red for fruit
+                    cout << "\033[31m" << getFoodSymbol() << "\033[37m "; // Red 
                 }
                 else {
                     bool find = false;
                     for (int k = 0; k < Tail_length; k++) {
                         if (TailX[k] == j && TailY[k] == i) {
-                            cout << "\033[32mo\033[37m "; // Green for tail
+                            cout << "\033[32mo\033[37m "; // Green 
                             find = true;
                         }
                     }
-                    if (!find) cout << "  "; // Maintain spacing
+                    if (!find) cout << "  ";
                 }
             }
-            cout << "\033[34m#\033[37m" << endl; // Right boundary
+            cout << "\033[34m#\033[37m" << endl; // Right 
         }
 
-        // Bottom boundary with spaces between #
-        cout << "\033[34m"; // Set color to blue
+        // Bottom 
+        cout << "\033[34m"; // blue
         for (int i = 0; i < width + 2; i++) cout << "# ";
-        cout << "\033[37m" << endl; // Reset color to white
+        cout << "\033[37m" << endl; // white
 
-        for (int i = 0; i < padding; i++) cout << endl; // Bottom padding
+        for (int i = 0; i < padding; i++) cout << endl; 
 
         cout << "Score: " << score << endl;
     }
@@ -198,9 +198,8 @@ int difficulty() {
 }
 
 int main() {
-    srand(time(0)); // Ensure random seed is set
-
-    showIntro(); // Show welcome message and controls
+    srand(time(0)); 
+    showIntro();
 
     int play;
     do {
@@ -214,7 +213,7 @@ int main() {
             Sleep(dif);
         }
 
-        // Show "GAME OVER" on the board
+      
         snakeGame.MainGame(true);
         Sleep(2000);
 
