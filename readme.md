@@ -26,7 +26,7 @@ We have created a classic Snake game and implemented in C++ . The game challenge
 - The game displays a "GAME OVER" message when you lose, and you can choose to restart.
 
 ## Link For The Code
-- here you can find the code for the game <https://github.com/Dev-KavyT/Binary-Brains/blob/50ff74c822919ee5444f962603d37dbf469277a1/SnakeGame.cpp>
+- here you can find the code for the game <https://github.com/Dev-KavyT/Binary-Brains/blob/main/SnakeGame.cpp>
 
 
 ## Requirements
