@@ -92,14 +92,14 @@ public:
 class Board {
 public:
     char grid[HEIGHT][WIDTH] = {};
-    int colorGrid[HEIGHT][WIDTH] = {}; // Store colors
+    int colorGrid[HEIGHT][WIDTH] = {}; 
     int score = 0;
 
     Board() {
         for (int i = 0; i < HEIGHT; i++)
             for (int j = 0; j < WIDTH; j++) {
                 grid[i][j] = ' ';
-                colorGrid[i][j] = -1; // No color initially
+                colorGrid[i][j] = -1; 
             }
     }
 
@@ -117,9 +117,9 @@ public:
                             isTetromino = true;
 
                 if (isTetromino)
-                    cout << colors[tetro.type] << "#" << "\033[0m"; // Active Tetrimino color
+                    cout << colors[tetro.type] << "#" << "\033[0m"; 
                 else if (grid[i][j] == '#')
-                    cout << colors[colorGrid[i][j]] << "#" << "\033[0m"; // Retain placed color
+                    cout << colors[colorGrid[i][j]] << "#" << "\033[0m"; 
                 else
                     cout << " ";
             }
@@ -144,7 +144,7 @@ public:
             for (int j = 0; j < 4; j++)
                 if (tetro.shape[i][j] == '#') {
                     grid[tetro.y + i][tetro.x + j] = '#';
-                    colorGrid[tetro.y + i][tetro.x + j] = tetro.type; // Store color type
+                    colorGrid[tetro.y + i][tetro.x + j] = tetro.type; 
                 }
     }
 
@@ -163,13 +163,13 @@ public:
                 for (int k = i; k > 0; k--) {
                     for (int j = 0; j < WIDTH; j++) {
                         grid[k][j] = grid[k - 1][j];
-                        colorGrid[k][j] = colorGrid[k - 1][j]; // Shift colors down
+                        colorGrid[k][j] = colorGrid[k - 1][j]; 
                     }
                 }
 
                 for (int j = 0; j < WIDTH; j++) {
                     grid[0][j] = ' ';
-                    colorGrid[0][j] = -1; // Clear color
+                    colorGrid[0][j] = -1;
                 }
                 i++;
             }
@@ -236,7 +236,7 @@ public:
                 if (!board.isValidMove(tetro, tetro.x, tetro.y)) {
                     gameOver = true;
                     displayGameOverScreen(board.score); // Show "GAME OVER" in the center
-                    askPlayAgain(); // Ask to replay
+                    askPlayAgain(); // 
                     return;
                 }
                 
@@ -280,7 +280,7 @@ void displayGameOverScreen(int score) {
     cout << "|";
     int padding = (WIDTH - 10) / 2; // Centering "GAME OVER"
     for (int i = 0; i < padding; i++) cout << " ";
-    cout << "\033[31mGAME OVER\033[0m"; // Red "GAME OVER" message
+    cout << "\033[31mGAME OVER\033[0m"; 
     for (int i = 0; i < padding; i++) cout << " ";
     cout << "|" << endl;
 
