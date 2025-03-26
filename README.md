@@ -15,7 +15,7 @@ This is a simple console-based Tetris game implemented in C++ using basic graphi
 - **Game Over and Restart Option**: Prompt to replay after losing.
 
 ## Code for The Game
-< >
+<https://github.com/Dev-KavyT/Binary-Brains/blob/main/Tetris.cpp>
 ## Controls
 | Key         | Action                   |
 |------------|--------------------------|
