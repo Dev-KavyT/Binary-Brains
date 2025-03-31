@@ -92,16 +92,48 @@ public:
 class Board {
 public:
     char grid[HEIGHT][WIDTH] = {};
-    int colorGrid[HEIGHT][WIDTH] = {}; 
+    int colorGrid[HEIGHT][WIDTH] = {}; // Store colors
     int score = 0;
 
     Board() {
         for (int i = 0; i < HEIGHT; i++)
             for (int j = 0; j < WIDTH; j++) {
                 grid[i][j] = ' ';
-                colorGrid[i][j] = -1; 
+                colorGrid[i][j] = -1; // No color initially
             }
     }
+     
+    bool isValidMove(Tetromino &tetro, int newX, int newY) {
+        for (int i = 0; i < 4; i++)
+            for (int j = 0; j < 4; j++)
+                if (tetro.shape[i][j] == '#' &&
+                    (newY + i >= HEIGHT || newX + j < 0 || newX + j >= WIDTH || grid[newY + i][newX + j] == '#'))
+                    return false;
+        return true;
+    }
+    bool canRotate(Tetromino &tetro) {
+        char rotated[4][4];
+
+        // Generate rotated shape
+        for (int i = 0; i < 4; i++)
+            for (int j = 0; j < 4; j++)
+                rotated[j][3 - i] = tetro.shape[i][j];
+
+        // Check if the rotated shape is within bounds and not colliding
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (rotated[i][j] == '#') {
+                    int newX = tetro.x + j;
+                    int newY = tetro.y + i;
+
+                    if (newX < 0 || newX >= WIDTH || newY >= HEIGHT || grid[newY][newX] == '#')
+                        return false; // Blocked by wall or another tetromino
+                }
+            }
+        }
+        return true; // Rotation is safe
+    }
+
 
     void draw(Tetromino &tetro) {
         system("cls");
@@ -117,9 +149,9 @@ public:
                             isTetromino = true;
 
                 if (isTetromino)
-                    cout << colors[tetro.type] << "#" << "\033[0m"; 
+                    cout << colors[tetro.type] << "#" << "\033[0m"; // Active Tetrimino color
                 else if (grid[i][j] == '#')
-                    cout << colors[colorGrid[i][j]] << "#" << "\033[0m"; 
+                    cout << colors[colorGrid[i][j]] << "#" << "\033[0m"; // Retain placed color
                 else
                     cout << " ";
             }
@@ -130,21 +162,12 @@ public:
         cout << "Use Arrow Keys to Move, SPACE to Drop, ESC to Quit\n";
     }
 
-    bool isValidMove(Tetromino &tetro, int newX, int newY) {
-        for (int i = 0; i < 4; i++)
-            for (int j = 0; j < 4; j++)
-                if (tetro.shape[i][j] == '#' &&
-                    (newY + i >= HEIGHT || newX + j < 0 || newX + j >= WIDTH || grid[newY + i][newX + j] == '#'))
-                    return false;
-        return true;
-    }
-
     void placeTetromino(Tetromino &tetro) {
         for (int i = 0; i < 4; i++)
             for (int j = 0; j < 4; j++)
                 if (tetro.shape[i][j] == '#') {
                     grid[tetro.y + i][tetro.x + j] = '#';
-                    colorGrid[tetro.y + i][tetro.x + j] = tetro.type; 
+                    colorGrid[tetro.y + i][tetro.x + j] = tetro.type; // Store color type
                 }
     }
 
@@ -163,13 +186,13 @@ public:
                 for (int k = i; k > 0; k--) {
                     for (int j = 0; j < WIDTH; j++) {
                         grid[k][j] = grid[k - 1][j];
-                        colorGrid[k][j] = colorGrid[k - 1][j]; 
+                        colorGrid[k][j] = colorGrid[k - 1][j]; // Shift colors down
                     }
                 }
 
                 for (int j = 0; j < WIDTH; j++) {
                     grid[0][j] = ' ';
-                    colorGrid[0][j] = -1;
+                    colorGrid[0][j] = -1; // Clear color
                 }
                 i++;
             }
@@ -217,11 +240,12 @@ public:
                         tetro.x++;
                     else if (ch == 80 && board.isValidMove(tetro, tetro.x, tetro.y + 1))
                         tetro.y++;
-                    else if (ch == 72) {
-                        tetro.rotate();
-                        if (!board.isValidMove(tetro, tetro.x, tetro.y))
-                            tetro.rotate();
-                    }
+                    else if (ch == 72) { // Up arrow key for rotation
+                     if (board.canRotate(tetro)) { // Check if rotation is possible
+                          tetro.rotate();
+    }
+}
+
                 }
             }
 
@@ -236,7 +260,7 @@ public:
                 if (!board.isValidMove(tetro, tetro.x, tetro.y)) {
                     gameOver = true;
                     displayGameOverScreen(board.score); // Show "GAME OVER" in the center
-                    askPlayAgain(); // 
+                    askPlayAgain(); // Ask to replay
                     return;
                 }
                 
@@ -280,7 +304,7 @@ void displayGameOverScreen(int score) {
     cout << "|";
     int padding = (WIDTH - 10) / 2; // Centering "GAME OVER"
     for (int i = 0; i < padding; i++) cout << " ";
-    cout << "\033[31mGAME OVER\033[0m"; 
+    cout << "\033[31mGAME OVER\033[0m"; // Red "GAME OVER" message
     for (int i = 0; i < padding; i++) cout << " ";
     cout << "|" << endl;
 
